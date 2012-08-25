@@ -7,23 +7,31 @@ import java.util.List;
 
 public class Character {
     
-    private int X;
-    private int Y;
-    private int dX;
-    private int H;
-    private int W;
-    private Level level;
-    private int dY;
+    protected int X;
+    protected int Y;
+    protected int dX;
+    protected int H;
+    protected int W;
+    protected Level level;
+    protected int dY;
     private boolean isAlive;
     private int age;
-    private List<Character> young;
+    protected List<Character> young;
+    
+    public boolean canBreedWith(Character c) {
+	return false;
+    }
     
     public Character() {
 	W = 10;
 	H = 10;
 	age = 0;
-	    setdX((int)(Math.random() * 4)+1);
-	    setdY((int)(Math.random() * 4)+1);
+	setdX((int)(Math.random() * 8)-4);
+	setdY((int)(Math.random() * 8)-4);
+	if (getdX() == 0)
+	    setdX(1);
+	if (getdY() == 0)
+	    setdY(1);
 	
 	isAlive = true;
 	young = new ArrayList<Character>();
@@ -58,8 +66,7 @@ public class Character {
     }
 
     
-    
-    
+      
     public int getX() {
 	return X;
     }
@@ -70,14 +77,6 @@ public class Character {
 	if (isAlive()) {
 	    g.setColor(Color.GRAY);
 	    g.fillOval(X, Y, 10, 10);
-	    g.setColor(Color.WHITE);
-	    g.fillOval(X-3,Y-4,8,8);
-	    g.fillOval(X+5,Y-4,8,8);
-	    g.setColor(Color.BLACK);
-	    g.drawOval(X-3,Y-4,8,8);
-	    g.drawOval(X+5,Y-4,8,8);
-	    g.drawLine(X+1, Y, X+1, Y);
-	    g.drawLine(X+9, Y, X+9, Y);
 	}
     }
     public int getY() {
@@ -107,35 +106,16 @@ public class Character {
 	move(current);
 	
 	age++;
-	if (age + (1000 * Math.random()) > 1500) {
+	if (age + (100 * Math.random()) > 150) {
 	    this.kill();
 	}
 	
-	if (Math.random() * 1000 > 999) {
-	    breed(current);
-	}
+
 	
     }
 
 
-    private void breed(Landmass current) {
-	double distance = Double.MAX_VALUE;
-	Character candidate = null;
-	for (Character c : level.getCharacters()) {
-	    if (level.whereAmI(c.getX(), c.getY(), c.W, c.H) == current) {
-		double newDistance = Math.pow(Math.pow(c.getX(), 2) + Math.pow(this.getX(), 2), 0.5);
-		if (newDistance < distance) {
-		    distance = newDistance;
-		    candidate = c;
-		}
-	    }
-	}
-	
-	if (candidate != null) {
-	 	young.add(new Chappy(this, candidate));
-	}
-	
-    }
+
 
 
     private void move(Landmass current) {

@@ -6,12 +6,12 @@ import java.awt.Polygon;
 
 public class Continent extends Landmass{
     
-    protected Polygon p;
+
     
     public Continent(Polygon p) {
-	this.p = p;
+	super(p);
+	// TODO Auto-generated constructor stub
     }
-    
     protected Color getFillColor() {
 	return Color.green;
     }
@@ -26,5 +26,7 @@ public class Continent extends Landmass{
     public int getType() {
 	return Landmass.CONTINENT;
     }
+
+
 
 }

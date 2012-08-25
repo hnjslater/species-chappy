@@ -17,8 +17,8 @@ public class Level {
     
     public Level() {
 	characters = Collections.synchronizedList(new CopyOnWriteArrayList<Character>());
-	continents = Collections.synchronizedList(new ArrayList<Continent>());
-	bridges = Collections.synchronizedList(new ArrayList<Bridge>());
+	continents = Collections.synchronizedList(new CopyOnWriteArrayList<Continent>());
+	bridges = Collections.synchronizedList(new CopyOnWriteArrayList<Bridge>());
     }
     
     public void populate(Character c) {
@@ -33,7 +33,20 @@ public class Level {
     }
     
     public void tick() {
-	
+	for (Continent c : continents) {
+	    c.zeroPopulation();
+	}
+	for (Bridge b : bridges) {
+	    b.zeroPopulation();
+	}
+	for (Character c : characters) {
+	    Landmass m = whereAmI(c.getX(), c.getY(), c.W, c.H);
+	    if (m!=null)
+		m.incPopulation();
+	}
+	for (Continent c : continents) {
+	    System.out.println(c.getClass().toString() + ":" + c.getPopulationDensity());
+	}	
 	for (Character c : characters) {
 	    c.tick();
 	}
@@ -71,7 +84,12 @@ public class Level {
 	    c.paint(g);
 	}
 	g.setColor(Color.black);
-	g.drawString("Population: " + this.characters.size(), 0, 450);
+	g.drawString("Current Population: " + this.characters.size() + " Aim: 150", 0, 450);
+	if (this.characters.size() > 150) {
+	    g.setColor(Color.PINK);
+	    g.setFont(g.getFont().deriveFont((float) (g.getFont().getSize() * 4)));
+	    g.drawString("YOU WIN!", 200, 450);
+	}
     }
 
 
@@ -88,6 +106,7 @@ public class Level {
     }
 
     public void click(int x, int y) {	
+	System.out.println("click" + x + "," + y);
 	for (Bridge b : bridges) {
 	    if (b.p.contains(x, y))
 		b.setOpen(!b.isOpen());
@@ -98,6 +117,10 @@ public class Level {
 
     public List<Character> getCharacters() {
 	return Collections.unmodifiableList(characters);
+    }
+
+    public double getPopulation() {
+	return characters.size();
     }
 
     

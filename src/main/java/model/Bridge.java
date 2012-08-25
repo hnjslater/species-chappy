@@ -6,10 +6,9 @@ import java.awt.Polygon;
 
 public class Bridge extends Landmass {
     public Bridge(Polygon p) {
-	this.p = p;
+	super(p);
 	this.isOpen = true;
     }
-    public Polygon p;
     private boolean isOpen;
     public void paint(Graphics g) {
 	g.setColor(Color.YELLOW);
