@@ -4,16 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.imageio.ImageIO;
+
 public class Level {
     protected List<Character> characters;
     protected List<Continent> continents;
     protected List<Bridge> bridges;
+    private BufferedImage bg = null;
     
     public Level() {
 	characters = Collections.synchronizedList(new CopyOnWriteArrayList<Character>());
@@ -68,27 +72,27 @@ public class Level {
     }
     
     public void paint(Graphics g) {
-	prepaint(g);
+	((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
+		RenderingHints.VALUE_ANTIALIAS_ON);
+	g.setColor(Color.blue);
+	g.fillRect(0, 0, 500, 500);
 
 	for (Bridge b : bridges) {
 	    b.paint(g);
 	}
-	for (Continent c : continents) {
-	    c.paint(g);
+	if (bg != null) {
+	    g.drawImage(bg, 0,0,null);
+	}
+	else {
+	    for (Continent c : continents) {
+		c.paint(g);
+	    }
 	}
 	for (Character c : characters) {
 	    c.paint(g);
 	}
 
     }
-
-    protected void prepaint(Graphics g) {
-	((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
-		RenderingHints.VALUE_ANTIALIAS_ON);
-	g.setColor(Color.blue);
-	g.fillRect(0, 0, 500, 500);
-    }
-
 
     public Landmass whereAmI(int x, int y, int w, int h) {
 	for (Continent c : continents) {
@@ -120,6 +124,15 @@ public class Level {
     }
     public boolean getComplete() {
 	return false;
+    }
+
+    protected void setBackground(String resource) {
+        try {                
+            java.io.InputStream is = getClass().getResourceAsStream(resource);
+            bg = ImageIO.read(is);
+        } catch (Exception ex) {
+            System.out.println("couldn't load background");
+        }
     }
     
 }

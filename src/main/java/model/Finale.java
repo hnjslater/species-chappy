@@ -7,17 +7,9 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Finale extends Level {
-    private BufferedImage bg = null;
     
     public Finale() {
-	
-	try {                
-	    java.io.InputStream is = getClass().getResourceAsStream("/finale.png");
-	    bg = ImageIO.read(is);
-	} catch (Exception ex) {
-	    System.out.println("couldn't load background");
-	}
-
+	setBackground("/finale.png");
 	for (int i = 0; i < 20; i++) {
 	    Chappy c1 = new Chappy();
 	    c1.setX((int)(250));
@@ -43,23 +35,4 @@ public class Finale extends Level {
 	populate(c);
 	}
     }
-    
-@Override
-public void paint(Graphics g) {
-	prepaint(g);
-	for (Bridge b : bridges) {
-	    b.paint(g);
-	}
-	if (bg != null) {
-	    g.drawImage(bg, 0,0,null);
-	}
-	else {
-	    for (Continent c : continents) {
-		c.paint(g);
-	    }
-	}
-	for (Character c : characters) {
-	    c.paint(g);
-	}
-}
 }

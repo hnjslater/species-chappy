@@ -5,16 +5,16 @@ import java.awt.Graphics;
 
 public class Chappy extends Character {
     double sun_adaption;
-    double sun_burn;
+    double health;
     public double hat = 0;
     public Chappy() {
 	super();
 	sun_adaption = 0;
-	sun_burn = 0;
+	health = 0;
 	hat = 0;
     }
     public Chappy(Chappy ma, Chappy pa, Landmass l) {
-	sun_burn = 0;
+	health = 0;
 	sun_adaption = (ma.sun_adaption + pa.sun_adaption) / 2;
 	sun_adaption += (l.getSunnyness()-sun_adaption) * 0.1;
 	hat = (ma.hat + pa.hat) / 2;
@@ -54,11 +54,12 @@ public class Chappy extends Character {
         	return;
             
             if (current.getSunnyness() > sun_adaption) {
-        	sun_burn += (current.getSunnyness() - sun_adaption) * 0.1;
-        	if (sun_burn >= 1) {
-        	    this.kill();
-        	    return;
-        	}
+        	health += (current.getSunnyness() - sun_adaption) * 0.1;
+            }
+            health += current.getLethalness();
+            if (health >= 1) {
+        	this.kill();
+        	return;
             }
             
             if (Math.random() * 100 > 96 && current.getPopulationDensity() < 2) {

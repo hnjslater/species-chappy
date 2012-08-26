@@ -43,6 +43,10 @@ public abstract class  Landmass {
     public double getSunnyness() {
 	return 0;
     }
+
+    public double getLethalness() {
+	return 0;
+    }
     public static double habitable(Landmass l, Character c) {
 	if (l == null) {
 	    return 0;

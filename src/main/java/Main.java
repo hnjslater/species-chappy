@@ -23,6 +23,7 @@ public class Main extends JPanel implements MouseListener {
     public Main() {
 	levels.add(new LevelZero());
 	levels.add(new LevelOne());
+	levels.add(new LevelTwo());
 	levels.add(new Finale());
 	addMouseListener(this);
     }
@@ -39,6 +40,7 @@ public class Main extends JPanel implements MouseListener {
 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	jf.add(jp);
 	jf.setResizable(false);
+	jf.setTitle("Species:Chappy");
 	
 	    	
 	

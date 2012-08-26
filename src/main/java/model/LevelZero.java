@@ -3,12 +3,9 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
-import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
 
 public class LevelZero extends Level {
-    private BufferedImage bg = null;
     
     int stage = 0;
     Bridge b1;
@@ -18,12 +15,7 @@ public class LevelZero extends Level {
     public LevelZero() {
 	
 
-	try {                
-	    java.io.InputStream is = getClass().getResourceAsStream("/level_zero.png");
-	    bg = ImageIO.read(is);
-	} catch (Exception ex) {
-	    System.out.println("couldn't load background");
-	}
+	setBackground("/level_zero.png");
 	
 	for (int i = 0; i < 5; i++) {
 	    Chappy c = new Chappy();
@@ -80,29 +72,14 @@ public class LevelZero extends Level {
 	}
     }
     public void paint(Graphics g) {
-        // TODO Auto-generated method stub
-	prepaint(g);
-	for (Bridge b : bridges) {
-	    b.paint(g);
-	}
+        super.paint(g);
 
-	if (bg != null) {
-	    g.drawImage(bg, 0,0,null);
-	}
-	else {
-	    for (Continent c : continents) {
-		c.paint(g);
-	    }
-	}
-	for (Character c : characters) {
-	    c.paint(g);
-	}
 	g.setColor(Color.black);
 	g.setFont(g.getFont().deriveFont(16));
 	g.drawString("These are chappies. They explore",10,30);
-	g.drawString("breed and then die. The yellow lines", 10, 50);
-	g.drawString("are bridges, click the gap between the", 10, 70);
-	g.drawString("higher two.", 10, 90);
+	g.drawString("breed in pairs and then die. The", 10, 50);
+	g.drawString("yellow lines are bridges, click", 10, 70);
+	g.drawString("the gap between the higher two.", 10, 90);
 	if (stage == 0 && b1.isOpen()) {
 	    stage++;
 	}

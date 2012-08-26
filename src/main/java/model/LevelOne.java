@@ -3,25 +3,13 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 
 
 public class LevelOne extends Level {
-    private BufferedImage bg = null;
     
     public LevelOne() {
-	
-	try {                
-	    java.io.InputStream is = getClass().getResourceAsStream("/level_one.png");
-	    bg = ImageIO.read(is);
-	} catch (Exception ex) {
-	    System.out.println("couldn't load background");
-	}
+	setBackground("/level_one.png");
 
 	for (int i = 0; i < 20; i++) {
 	    Chappy c1 = new Chappy();
@@ -90,28 +78,9 @@ public class LevelOne extends Level {
     @Override
     public void paint(Graphics g) {
         // TODO Auto-generated method stub
-	prepaint(g);
-	for (Bridge b : bridges) {
-	    b.paint(g);
-	}
-	if (bg != null) {
-	    g.drawImage(bg, 0,0,null);
-	}
-	else {
-	    for (Continent c : continents) {
-		c.paint(g);
-	    }
-	}
-	for (Character c : characters) {
-	    c.paint(g);
-	}
+	super.paint(g);
 	g.setColor(Color.black);
 	g.drawString("Current Population: " + this.characters.size() + " Aim: 200", 0, 450);
-	if (this.characters.size() > 200) {
-	    g.setColor(Color.PINK);
-	    g.setFont(g.getFont().deriveFont((float) (g.getFont().getSize() * 4)));
-	    g.drawString("YOU WIN!", 200, 450);
-	}
     }
 @Override
 public boolean getComplete() {
