@@ -2,6 +2,8 @@ import java.awt.Dimension;
 import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,58 +12,35 @@ import javax.swing.SwingWorker;
 import model.*;
 
 
-public class Main {
-
+public class Main extends JPanel implements MouseListener {
+    private static final long serialVersionUID = 1L;
+    List<Level> levels = new ArrayList<Level>();
+    int level = 0;
     /**
      * @param args
      */
+    
+    public Main() {
+	levels.add(new LevelZero());
+	levels.add(new LevelOne());
+	levels.add(new Finale());
+	addMouseListener(this);
+    }
     public static void main(String[] args) {
-	final Level lev = new LevelZero();
+	final Main jp = new Main();
 	
-	final JFrame jf = new JFrame();
+	JFrame jf = new JFrame();
+
 	
-	final JPanel jp = new JPanel() {
-	    private static final long serialVersionUID = 1L;
-	    public void paint(java.awt.Graphics g) {
-		lev.tick();
-		lev.paint(g);
-	    };
-	};
+	
+	
 
 	jf.setSize(500, 500);
 	jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	jf.add(jp);
 	jf.setResizable(false);
-	jp.addMouseListener(new MouseListener() {
-	    public void mouseClicked(MouseEvent e) {
-	        lev.click(e.getX(), e.getY());
-	        
-	    }
-
-	    public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	    }
-
-	    public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	    }
-
-	    public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	    }
-
-	    public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	    }
-	});
 	
-	
-
-	
+	    	
 	
 	Runnable r = new Runnable() {
 
@@ -83,5 +62,32 @@ public class Main {
 	
 
     }
-
+    public void paint(java.awt.Graphics g) {
+	levels.get(level).tick();
+	levels.get(level).paint(g);
+	
+	if (levels.get(level).getComplete()) {
+	    level++;
+	}
+    }
+    public void mouseClicked(MouseEvent e) {
+        levels.get(level).click(e.getX(), e.getY());
+	
+    }
+    public void mouseEntered(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+    }
+    public void mouseExited(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+    }
+    public void mousePressed(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+    }
+    public void mouseReleased(MouseEvent e) {
+	// TODO Auto-generated method stub
+	
+    };
 }

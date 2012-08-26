@@ -100,15 +100,16 @@ public class LevelZero extends Level {
 	g.setColor(Color.black);
 	g.setFont(g.getFont().deriveFont(16));
 	g.drawString("These are chappies. They explore",10,30);
-	g.drawString("breed and then die. The yellow boxes", 10, 50);
-	g.drawString("are bridges, click the higher one.", 10, 70);
+	g.drawString("breed and then die. The yellow lines", 10, 50);
+	g.drawString("are bridges, click the gap between the", 10, 70);
+	g.drawString("higher two.", 10, 90);
 	if (stage == 0 && b1.isOpen()) {
 	    stage++;
 	}
 	if (stage > 0) {
-	    g.drawString("Well done, now the chappies can explore.",10,100);
-	    g.drawString("A larger continent can support a", 10, 120);
-	    g.drawString("higher population.",10,140);
+	    g.drawString("Well done, now the chappies can",10,120);
+	    g.drawString("explore. A larger continent can", 10, 140);
+	    g.drawString("support a higher population.",10,160);
 	}
 	if (stage == 1 && b2.isOpen()) {
 	    stage++;
@@ -138,5 +139,9 @@ public class LevelZero extends Level {
 	if (ave_hat > 0.6) {
 	    stage = 3;
 	}
+    }
+    @Override
+    public boolean getComplete() {
+	return stage == 3;
     }
 }

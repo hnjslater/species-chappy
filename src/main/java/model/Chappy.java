@@ -19,8 +19,8 @@ public class Chappy extends Character {
 	sun_adaption += (l.getSunnyness()-sun_adaption) * 0.1;
 	hat = (ma.hat + pa.hat) / 2;
 	hat += (l.getHattiness() - hat) * 0.1;
-	this.setX((ma.getX() + pa.getX()) / 2);
-	this.setY((ma.getY() + pa.getY()) / 2);
+	this.setX(ma.getX());
+	this.setY(ma.getY());
     }
     private void breed(Landmass current) {
 	double distance = Double.MAX_VALUE;
@@ -41,7 +41,7 @@ public class Chappy extends Character {
     
     @Override
     public boolean canBreedWith(Character c) {
-	return (c instanceof Chappy);
+	return (c instanceof Chappy && c != this);
     }
     @Override
     public void tick() {
@@ -83,10 +83,9 @@ public class Chappy extends Character {
 	    g.drawLine(X+1, Y, X+1, Y);
 	    g.drawLine(X+9, Y, X+9, Y);
 	    
-	    // bowlerhat
-	    if (hat > 0) {
-		int hat_radius = (int) (hat * 16);
-		//g.fillArc(X - (hat_radius/2)+ 10, Y - (hat_radius/4), hat_radius,  hat_radius, 0, 180);
+	    // rhat
+	    int hat_radius = (int) (hat * 16);
+	    if (hat_radius > 0) {
 		g.fillRect(X +1, Y - 4 - hat_radius, 8,  hat_radius);
 		g.fillRect(X -2, Y - 4, 14,  2);
 	    }

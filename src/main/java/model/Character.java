@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Character {
     
@@ -18,6 +19,7 @@ public class Character {
     private int age;
     protected List<Character> young;
     public Landmass continent;
+    static Random r = new Random();
     
     public boolean canBreedWith(Character c) {
 	return false;
@@ -27,15 +29,15 @@ public class Character {
 	W = 10;
 	H = 10;
 	age = 0;
-	setdX((int)(Math.random() * 8)-4);
-	setdY((int)(Math.random() * 8)-4);
-	if (getdX() == 0)
-	    setdX(1);
-	if (getdY() == 0)
-	    setdY(1);
-	
 	isAlive = true;
 	young = new ArrayList<Character>();
+	setdX(r.nextInt(8) -4);
+	setdY(r.nextInt(8) -4);
+	if (getdX() >= 0)
+	    dX+=1;
+	if (getdY() >= 0)
+	    dY+=1;
+	
     }
  
     public List<Character> getYoung() {

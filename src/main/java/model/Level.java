@@ -118,6 +118,8 @@ public class Level {
     public double getPopulation() {
 	return characters.size();
     }
-
+    public boolean getComplete() {
+	return false;
+    }
     
 }

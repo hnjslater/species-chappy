@@ -113,5 +113,8 @@ public class LevelOne extends Level {
 	    g.drawString("YOU WIN!", 200, 450);
 	}
     }
-
+@Override
+public boolean getComplete() {
+    return this.characters.size() > 200;
+}
 }
