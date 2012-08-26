@@ -41,8 +41,10 @@ public class Level {
 	}
 	for (Character c : characters) {
 	    Landmass m = whereAmI(c.getX(), c.getY(), c.W, c.H);
-	    if (m!=null)
+	    if (m!=null) 
 		m.incPopulation();
+	    c.continent = m;
+	    
 	}
 	for (Character c : characters) {
 	    c.tick();

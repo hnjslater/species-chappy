@@ -16,7 +16,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-	final Level lev = new LevelOne();
+	final Level lev = new LevelZero();
 	
 	final JFrame jf = new JFrame();
 	

@@ -17,6 +17,7 @@ public class Character {
     private boolean isAlive;
     private int age;
     protected List<Character> young;
+    public Landmass continent;
     
     public boolean canBreedWith(Character c) {
 	return false;
@@ -153,6 +154,8 @@ public class Character {
 	X += dX;
 	Y += dY;
     }
+
+  
 
 
 }

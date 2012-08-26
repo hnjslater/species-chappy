@@ -68,4 +68,8 @@ public abstract class  Landmass {
 	else
 	    return this.population / this.area;
     }
+
+    public double getHattiness() {
+	return 0;
+    }
 }

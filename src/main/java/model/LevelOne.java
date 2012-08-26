@@ -106,8 +106,8 @@ public class LevelOne extends Level {
 	    c.paint(g);
 	}
 	g.setColor(Color.black);
-	g.drawString("Current Population: " + this.characters.size() + " Aim: 150", 0, 450);
-	if (this.characters.size() > 150) {
+	g.drawString("Current Population: " + this.characters.size() + " Aim: 200", 0, 450);
+	if (this.characters.size() > 200) {
 	    g.setColor(Color.PINK);
 	    g.setFont(g.getFont().deriveFont((float) (g.getFont().getSize() * 4)));
 	    g.drawString("YOU WIN!", 200, 450);
