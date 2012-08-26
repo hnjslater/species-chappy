@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Level {
-    private List<Character> characters;
-    private List<Continent> continents;
-    private List<Bridge> bridges;
+    protected List<Character> characters;
+    protected List<Continent> continents;
+    protected List<Bridge> bridges;
     
     public Level() {
 	characters = Collections.synchronizedList(new CopyOnWriteArrayList<Character>());
@@ -44,9 +44,6 @@ public class Level {
 	    if (m!=null)
 		m.incPopulation();
 	}
-	for (Continent c : continents) {
-	    System.out.println(c.getClass().toString() + ":" + c.getPopulationDensity());
-	}	
 	for (Character c : characters) {
 	    c.tick();
 	}
@@ -69,10 +66,7 @@ public class Level {
     }
     
     public void paint(Graphics g) {
-	((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
-		RenderingHints.VALUE_ANTIALIAS_ON);
-	g.setColor(Color.blue);
-	g.fillRect(0, 0, 500, 500);
+	prepaint(g);
 
 	for (Bridge b : bridges) {
 	    b.paint(g);
@@ -83,13 +77,14 @@ public class Level {
 	for (Character c : characters) {
 	    c.paint(g);
 	}
-	g.setColor(Color.black);
-	g.drawString("Current Population: " + this.characters.size() + " Aim: 150", 0, 450);
-	if (this.characters.size() > 150) {
-	    g.setColor(Color.PINK);
-	    g.setFont(g.getFont().deriveFont((float) (g.getFont().getSize() * 4)));
-	    g.drawString("YOU WIN!", 200, 450);
-	}
+
+    }
+
+    protected void prepaint(Graphics g) {
+	((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, // Anti-alias!
+		RenderingHints.VALUE_ANTIALIAS_ON);
+	g.setColor(Color.blue);
+	g.fillRect(0, 0, 500, 500);
     }
 
 
@@ -106,7 +101,6 @@ public class Level {
     }
 
     public void click(int x, int y) {	
-	System.out.println("click" + x + "," + y);
 	for (Bridge b : bridges) {
 	    if (b.p.contains(x, y))
 		b.setOpen(!b.isOpen());

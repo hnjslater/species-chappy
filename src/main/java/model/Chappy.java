@@ -46,6 +46,8 @@ public class Chappy extends Character {
         if (this.isAlive()) {
                     
             Landmass current = level.whereAmI(X,Y,W,H);
+            if (current == null)
+        	return;
             
             if (current.getSunnyness() > sun_adaption) {
         	sun_burn += (current.getSunnyness() - sun_adaption) * 0.1;
