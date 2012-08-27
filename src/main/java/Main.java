@@ -12,14 +12,14 @@ import javax.swing.SwingWorker;
 import model.*;
 
 
-public class Main extends JPanel implements MouseListener {
+public class Main extends JPanel implements MouseListener, Runnable {
     private static final long serialVersionUID = 1L;
     List<Level> levels = new ArrayList<Level>();
     int level = 0;
     /**
      * @param args
      */
-    
+        
     public Main() {
 	levels.add(new LevelZero());
 	levels.add(new LevelOne());
@@ -44,22 +44,11 @@ public class Main extends JPanel implements MouseListener {
 	
 	    	
 	
-	Runnable r = new Runnable() {
 
-	    public void run() {
-		while (true) {
-		jp.repaint();
-		try {
-		    Thread.sleep(100);
-		} catch (InterruptedException e) {
-		}
-		}
-		
-	    }
-	    
-	};
 	jf.setVisible(true);
-	r.run();
+	Thread t = new Thread(jp);
+	t.run();
+	
 	
 	
 
@@ -91,5 +80,16 @@ public class Main extends JPanel implements MouseListener {
     public void mouseReleased(MouseEvent e) {
 	// TODO Auto-generated method stub
 	
-    };
+    }
+    @Override
+    public void run() {
+	while (true) {
+	this.repaint();
+	try {
+	    Thread.sleep(100);
+	} catch (InterruptedException e) {
+	}
+	}
+	
+    }
 }
